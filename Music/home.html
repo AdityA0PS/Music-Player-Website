@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBAi0P-_vA0o3v8nuwtOSFNcQzayrFAOY4",
+      authDomain: "music-a6ff3.firebaseapp.com",
+      projectId: "music-a6ff3",
+      storageBucket: "music-a6ff3.appspot.com",
+      messagingSenderId: "542795421225",
+      appId: "1:542795421225:web:43e1443b5ce93a0f8aae38",
+      measurementId: "G-6V0PN547GV"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>berryFECTION | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="play.css">
+</head>
+
+<body>
+
+
+    <header>
+        <img src="image/b.png" style="width:100%; object-fit: contain; display: block;"></img>
+
+    </header>
+    <div class="name">berryFECTION Sounds</div>
+
+
+            <div class="navigation">
+                <ul>
+                    <li><a class="active" href="#home">Home</a></li>
+                    <li><a href="explore.html">Explore</a></li>
+                    <li><a href="playlist.html">Playlist</a></li>
+                    <li><a href="#about">References</a></li>
+                    <li><a href="login.html" style="padding-right: 5px;">Login</a></li>
+                  </ul>
+            </div>      
+            
+
+        <div class="main_div">
+            <div class="music_container">
+                <h2 id="title">Tu hai Kahan</h2>
+                <h3 id="artist">Ishaan Kaushik</h3>
+                <div class="img_container">
+                    <img src="image/b.png" alt="Tu hai Kahan">
+                </div>
+                <audio src="audio/berry-1.mp3"></audio>
+    
+                <div class="music_controls">
+                    <i class="fas fa-backward" id="prev" title="Previous"></i>
+                    <i class="fas fa-play main_button" id="play" title="Play"></i>
+                    <i class="fas fa-forward" id="next" title="Next"></i>
+    
+                </div>
+            </div>
+        </div>
+        <script>
+            const music = document.querySelector("audio");
+            const img = document.querySelector("img");
+            const play = document.getElementById("play");
+            const artist = document.getElementById("artist");
+            const title = document.getElementById("title");
+            const prev = document.getElementById("prev");
+            const next = document.getElementById("next");
+    
+            const songs = [
+    
+                {
+                    name: "berry-1",
+                    title: "Tu hai Kahan",
+                    artist: "Ishaan Kaushik"
+                },
+    
+                {
+                    name: "berry-2",
+                    title: "100 Bars",
+                    artist: "Talha Anjum",
+                },
+    
+                {
+                    name: "berry-3",
+                    title: "Highest in the Room",
+                    artist: "Travis Scott"
+                }
+            ]
+    
+            let isPlaying = false;
+    
+         // for play function   
+                const playMusic = () => {
+                isPlaying = true;
+                music.play();
+                play.classList.replace("fa-play" , "fa-pause");
+                img.classList.add("anime");
+            };
+    
+    
+            // for pause function
+                const pauseMusic = () => {
+                isPlaying = false;
+                music.pause();
+                play.classList.replace("fa-pause" , "fa-play");
+                img.classList.remove("anime");
+            };
+    
+    
+            play.addEventListener("click", () => {
+                if(isPlaying){
+                    pauseMusic();
+                }
+                else{
+                    playMusic();
+                }
+            });
+    
+            // changing the music data
+    
+            const loadSong = (songs) => {
+                title.textContent = songs.title;
+                artist.textContent = songs.artist;
+                music.src = "audio/" + songs.name + ".mp3";
+                img.src = "img/" + songs.name + ".jpg";
+    
+            };
+    
+            songIndex = 0;
+          //  loadSong(songs[2]);
+    
+            const nextSong = () => {
+                songIndex = (songIndex + 1) % songs.length;
+                loadSong(songs[songIndex]);
+                playMusic();
+            };
+    
+            const prevSong = () => {
+                songIndex = (songIndex - 1 + songs.length) % songs.length;
+                loadSong(songs[songIndex]);
+                playMusic();
+            };
+     
+            next.addEventListener("click", nextSong);
+            prev.addEventListener("click", prevSong);
+    
+    
+        </script>
+
+</body>
+</html>
